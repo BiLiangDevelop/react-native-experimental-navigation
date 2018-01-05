@@ -17,6 +17,7 @@ const React = require('react');
 const StyleSheet = require('react-native').StyleSheet;
 const View = require('react-native').View;
 const NavigationScenesReducer = require('./NavigationScenesReducer');
+const ReactComponentWithPureRenderMixin = require('react-addons-pure-render-mixin');
 
 import type {
   NavigationActionCaller,
@@ -40,13 +41,13 @@ type State = {
   scenes: Array<NavigationScene>,
 };
 
-const PropTypes = require('prop-types');
+const {PropTypes} = React;
 
 /**
  * A simple view that will render a scene for the currently focused sub-state.
  * The most common use-case is for tabs, where no transition is needed
  */
-class NavigationView extends React.PureComponent<any, Props, any> {
+class NavigationView extends React.Component<any, Props, any> {
   _onLayout: (event: any) => void;
   _position: NavigationAnimatedValue;
 
@@ -78,6 +79,14 @@ class NavigationView extends React.PureComponent<any, Props, any> {
       layout,
       scenes: NavigationScenesReducer([], navigationState),
     };
+  }
+
+  shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
+    return ReactComponentWithPureRenderMixin.shouldComponentUpdate.call(
+      this,
+      nextProps,
+      nextState
+    );
   }
 
   componentWillReceiveProps(nextProps: Props): void {

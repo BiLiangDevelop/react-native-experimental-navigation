@@ -71,7 +71,7 @@ function getBackAction(): BackAction {
   return { type: 'BackAction' };
 }
 
-const PropTypes = require('prop-types');
+const {PropTypes} = React;
 
 class NavigationRootContainer extends React.Component<any, Props, State> {
   _handleOpenURLEvent: Function;

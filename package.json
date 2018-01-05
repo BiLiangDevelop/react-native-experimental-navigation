@@ -1,33 +1,53 @@
 {
-  "name": "react-native-experimental-navigation",
-  "version": "0.29.1",
-  "description": "React Native ExperimentalNavigation clone",
-  "main": "NavigationExperimental",
-  "scripts": {
-    "build": "babel src -d lib"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aksonov/react-native-experimental-navigation.git"
-  },
-  "keywords": [
-    "react-native",
-    "ExperimentalNavigation",
-    "navigation"
+  "_args": [
+    [
+      {
+        "raw": "react-native-experimental-navigation@0.26.x",
+        "scope": null,
+        "escapedName": "react-native-experimental-navigation",
+        "name": "react-native-experimental-navigation",
+        "rawSpec": "0.26.x",
+        "spec": ">=0.26.0 <0.27.0",
+        "type": "range"
+      },
+      "/Users/pzzh/Desktop/StarCloud/starCloudApp/node_modules/react-native-router-flux"
+    ]
   ],
-  "author": "Pavlo Aksonov",
-  "license": "BSD 3-clause \"New\" or \"Revised\" License",
-  "bugs": {
-    "url": "https://github.com/aksonov/react-native-experimental-navigation/issues"
+  "_cnpm_publish_time": 1473666048484,
+  "_from": "react-native-experimental-navigation@>=0.26.0 <0.27.0",
+  "_id": "react-native-experimental-navigation@0.26.10",
+  "_inCache": true,
+  "_location": "/react-native-experimental-navigation",
+  "_nodeVersion": "5.5.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/react-native-experimental-navigation-0.26.10.tgz_1473666046425_0.6150262032169849"
   },
-  "homepage": "https://github.com/aksonov/react-native-experimental-navigation#readme",
-  "devDependencies": {
-    "babel-cli": "^6.8.0",
-    "clamp": "^1.0.1",
-    "fbjs": "^0.8.1",
-    "babel-plugin-syntax-flow": "^6.8.0",
-    "babel-plugin-transform-flow-strip-types": "^6.8.0",
-    "babel-preset-react-native": "^1.7.0"
+  "_npmUser": {
+    "name": "aksonov",
+    "email": "pavlo.aksonov@gmail.com"
+  },
+  "_npmVersion": "3.5.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "react-native-experimental-navigation@0.26.x",
+    "scope": null,
+    "escapedName": "react-native-experimental-navigation",
+    "name": "react-native-experimental-navigation",
+    "rawSpec": "0.26.x",
+    "spec": ">=0.26.0 <0.27.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/react-native-router-flux"
+  ],
+  "_resolved": "https://registry.npm.taobao.org/react-native-experimental-navigation/download/react-native-experimental-navigation-0.26.10.tgz",
+  "_shasum": "355e37929a2bfb84088dca331f34bc575297df68",
+  "_shrinkwrap": null,
+  "_spec": "react-native-experimental-navigation@0.26.x",
+  "_where": "/Users/pzzh/Desktop/StarCloud/starCloudApp/node_modules/react-native-router-flux",
+  "author": {
+    "name": "Pavlo Aksonov"
   },
   "babel": {
     "plugins": [
@@ -38,12 +58,59 @@
       "react-native"
     ]
   },
+  "bugs": {
+    "url": "https://github.com/aksonov/react-native-experimental-navigation/issues"
+  },
   "dependencies": {
     "babel-plugin-syntax-flow": "^6.8.0",
     "babel-plugin-transform-flow-strip-types": "^6.8.0",
     "babel-preset-react-native": "^1.9.0",
     "clamp": "^1.0.1",
     "fbjs": "^0.8.1",
-    "prop-types": "^15.5.10"
-  }
+    "react-addons-pure-render-mixin": "^15.0.2"
+  },
+  "description": "React Native ExperimentalNavigation clone",
+  "devDependencies": {
+    "babel-cli": "^6.8.0",
+    "babel-plugin-syntax-flow": "^6.8.0",
+    "babel-plugin-transform-flow-strip-types": "^6.8.0",
+    "babel-preset-react-native": "^1.7.0",
+    "clamp": "^1.0.1",
+    "fbjs": "^0.8.1",
+    "react-addons-pure-render-mixin": "^15.0.2"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "355e37929a2bfb84088dca331f34bc575297df68",
+    "size": 27744,
+    "noattachment": false,
+    "tarball": "http://registry.npm.taobao.org/react-native-experimental-navigation/download/react-native-experimental-navigation-0.26.10.tgz"
+  },
+  "gitHead": "f8edc0e053ab45c1068377c4885da3e9090aaf09",
+  "homepage": "https://github.com/aksonov/react-native-experimental-navigation#readme",
+  "keywords": [
+    "react-native",
+    "ExperimentalNavigation",
+    "navigation"
+  ],
+  "license": "ISC",
+  "main": "NavigationExperimental",
+  "maintainers": [
+    {
+      "name": "aksonov",
+      "email": "pavlo.aksonov@gmail.com"
+    }
+  ],
+  "name": "react-native-experimental-navigation",
+  "optionalDependencies": {},
+  "publish_time": 1473666048484,
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aksonov/react-native-experimental-navigation.git"
+  },
+  "scripts": {
+    "build": "babel src -d lib"
+  },
+  "version": "0.26.10"
 }

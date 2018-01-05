@@ -46,6 +46,7 @@ const NavigatorBreadcrumbNavigationBar = require('./NavigatorBreadcrumbNavigatio
 const NavigatorNavigationBar = require('./NavigatorNavigationBar');
 const NavigatorSceneConfigs = require('./NavigatorSceneConfigs');
 const React = require('react');
+const ReactComponentWithPureRenderMixin = require('react-addons-pure-render-mixin');
 
 import type  {
   NavigationActionCaller,
@@ -85,7 +86,7 @@ const RouteStack = NavigationLegacyNavigatorRouteStack;
  * intention by using the new Navigation API such as
  * `NavigationAnimatedView`...etc.
  */
-class NavigationLegacyNavigator extends React.PureComponent<any, Props, State> {
+class NavigationLegacyNavigator extends React.Component<any, Props, State> {
   static BreadcrumbNavigationBar: any;
   static NavigationBar: any;
   static SceneConfigs: any;
@@ -189,6 +190,14 @@ class NavigationLegacyNavigator extends React.PureComponent<any, Props, State> {
   }
 
   // Life cycle and private methods below.
+
+  shouldComponentUpdate(nextProps: Object, nextState: Object): boolean {
+    return ReactComponentWithPureRenderMixin.shouldComponentUpdate.call(
+      this,
+      nextProps,
+      nextState
+    );
+  }
 
   componentWillMount(): void {
     this._applyAnimation = this._applyAnimation.bind(this);
