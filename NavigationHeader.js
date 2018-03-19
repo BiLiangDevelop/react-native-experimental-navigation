@@ -42,206 +42,209 @@ const NavigationHeaderStyleInterpolator = require('./NavigationHeaderStyleInterp
 const ReactComponentWithPureRenderMixin = require('react-addons-pure-render-mixin');
 
 const {
-  Animated,
-  Platform,
-  StyleSheet,
-  View,
+    Animated,
+    Platform,
+    StyleSheet,
+    View,
+    ViewPropTypes,
 } = ReactNative;
 
 import type  {
-  NavigationSceneRenderer,
-  NavigationSceneRendererProps,
-  NavigationStyleInterpolator,
+    NavigationSceneRenderer,
+    NavigationSceneRendererProps,
+    NavigationStyleInterpolator,
 } from 'NavigationTypeDefinition';
 
-type DefaultProps = {
-  renderLeftComponent: NavigationSceneRenderer,
-  renderRightComponent: NavigationSceneRenderer,
-  renderTitleComponent: NavigationSceneRenderer,
+type
+DefaultProps = {
+    renderLeftComponent: NavigationSceneRenderer,
+    renderRightComponent: NavigationSceneRenderer,
+    renderTitleComponent: NavigationSceneRenderer,
 };
 
-type Props = NavigationSceneRendererProps & {
-  renderLeftComponent: NavigationSceneRenderer,
-  renderRightComponent: NavigationSceneRenderer,
-  renderTitleComponent: NavigationSceneRenderer,
-  style?: any;
-  viewProps?: any;
-};
+type
+Props = NavigationSceneRendererProps & {
+    renderLeftComponent: NavigationSceneRenderer,
+    renderRightComponent: NavigationSceneRenderer,
+    renderTitleComponent: NavigationSceneRenderer,
+    style? : any;
+viewProps ? : any;
+}
+;
 
-type SubViewName = 'left' | 'title' | 'right';
+type
+SubViewName = 'left' | 'title' | 'right';
 
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
-const {PropTypes} = React;
+import PropTypes from 'prop-types';
 
 class NavigationHeader extends React.Component<DefaultProps, Props, any> {
-  props: Props;
+    props: Props;
 
-  static defaultProps = {
+    static defaultProps = {
 
-    renderTitleComponent: (props: NavigationSceneRendererProps) => {
-      const {navigationState} = props;
-      const title = String(navigationState.title || '');
-      return <NavigationHeaderTitle>{title}</NavigationHeaderTitle>;
-    },
+        renderTitleComponent: (props: NavigationSceneRendererProps) => {
+            const {navigationState} = props;
+            const title = String(navigationState.title || '');
+            return <NavigationHeaderTitle>{title}</NavigationHeaderTitle>;
+        },
 
-    renderLeftComponent: (props: NavigationSceneRendererProps) => {
-      return props.scene.index > 0 ? <NavigationHeaderBackButton /> : null;
-    },
+        renderLeftComponent: (props: NavigationSceneRendererProps) => {
+            return props.scene.index > 0 ? <NavigationHeaderBackButton/> : null;
+        },
 
-    renderRightComponent: (props: NavigationSceneRendererProps) => {
-      return null;
-    },
-  };
+        renderRightComponent: (props: NavigationSceneRendererProps) => {
+            return null;
+        },
+    };
 
-  static propTypes = {
-    ...NavigationPropTypes.SceneRendererProps,
-    renderLeftComponent: PropTypes.func,
-    renderRightComponent: PropTypes.func,
-    renderTitleComponent: PropTypes.func,
-    style: View.propTypes.style,
-    viewProps: PropTypes.shape(View.propTypes),
-  };
+    static propTypes = {
+        ...NavigationPropTypes.SceneRendererProps,
+        renderLeftComponent: PropTypes.func,
+        renderRightComponent: PropTypes.func,
+        renderTitleComponent: PropTypes.func,
+        style: ViewPropTypes.style,
+        viewProps: PropTypes.shape(ViewPropTypes),
+    };
 
-  shouldComponentUpdate(nextProps: Props, nextState: any): boolean {
-    return ReactComponentWithPureRenderMixin.shouldComponentUpdate.call(
-      this,
-      nextProps,
-      nextState
-    );
-  }
-
-  render(): ReactElement {
-    const { scenes, style, viewProps } = this.props;
-
-    const scenesProps = scenes.map(scene => {
-      const props = NavigationPropTypes.extractSceneRendererProps(this.props);
-      props.scene = scene;
-      return props;
-    });
-
-    return (
-      <View style={[ styles.appbar, style ]} {...viewProps}>
-        {scenesProps.map(this._renderLeft, this)}
-        {scenesProps.map(this._renderTitle, this)}
-        {scenesProps.map(this._renderRight, this)}
-      </View>
-    );
-  }
-
-  _renderLeft(props: NavigationSceneRendererProps): ?ReactElement {
-    return this._renderSubView(
-      props,
-      'left',
-      this.props.renderLeftComponent,
-      NavigationHeaderStyleInterpolator.forLeft,
-    );
-  }
-
-  _renderTitle(props: NavigationSceneRendererProps): ?ReactElement {
-    return this._renderSubView(
-      props,
-      'title',
-      this.props.renderTitleComponent,
-      NavigationHeaderStyleInterpolator.forCenter,
-    );
-  }
-
-  _renderRight(props: NavigationSceneRendererProps): ?ReactElement {
-    return this._renderSubView(
-      props,
-      'right',
-      this.props.renderRightComponent,
-      NavigationHeaderStyleInterpolator.forRight,
-    );
-  }
-
-  _renderSubView(
-    props: NavigationSceneRendererProps,
-    name: SubViewName,
-    renderer: NavigationSceneRenderer,
-    styleInterpolator: NavigationStyleInterpolator,
-  ): ?ReactElement {
-    const {
-      scene,
-      navigationState,
-    } = props;
-
-    const {
-      index,
-      isStale,
-      key,
-    } = scene;
-
-    const offset = navigationState.index - index;
-
-    if (Math.abs(offset) > 2) {
-      // Scene is far away from the active scene. Hides it to avoid unnecessary
-      // rendering.
-      return null;
+    shouldComponentUpdate(nextProps: Props, nextState: any): boolean {
+        return ReactComponentWithPureRenderMixin.shouldComponentUpdate.call(
+            this,
+            nextProps,
+            nextState
+        );
     }
 
-    const subView = renderer(props);
-    if (subView === null) {
-      return null;
+    render(): ReactElement {
+        const {scenes, style, viewProps} = this.props;
+
+        const scenesProps = scenes.map(scene => {
+            const props = NavigationPropTypes.extractSceneRendererProps(this.props);
+            props.scene = scene;
+            return props;
+        });
+
+        return (
+            <View style={[styles.appbar, style]} {...viewProps}>
+                {scenesProps.map(this._renderLeft, this)}
+                {scenesProps.map(this._renderTitle, this)}
+                {scenesProps.map(this._renderRight, this)}
+            </View>
+        );
     }
 
-    const pointerEvents = offset !== 0 || isStale ? 'none' : 'box-none';
-    return (
-      <Animated.View
-        pointerEvents={pointerEvents}
-        key={name + '_' + key}
-        style={[
-          styles[name],
-          styleInterpolator(props),
-        ]}>
-        {subView}
-      </Animated.View>
-    );
-  }
+    _renderLeft(props: NavigationSceneRendererProps): ?ReactElement {
+        return this._renderSubView(
+            props,
+            'left',
+            this.props.renderLeftComponent,
+            NavigationHeaderStyleInterpolator.forLeft,
+        );
+    }
+
+    _renderTitle(props: NavigationSceneRendererProps): ?ReactElement {
+        return this._renderSubView(
+            props,
+            'title',
+            this.props.renderTitleComponent,
+            NavigationHeaderStyleInterpolator.forCenter,
+        );
+    }
+
+    _renderRight(props: NavigationSceneRendererProps): ?ReactElement {
+        return this._renderSubView(
+            props,
+            'right',
+            this.props.renderRightComponent,
+            NavigationHeaderStyleInterpolator.forRight,
+        );
+    }
+
+    _renderSubView(props: NavigationSceneRendererProps,
+                   name: SubViewName,
+                   renderer: NavigationSceneRenderer,
+                   styleInterpolator: NavigationStyleInterpolator,): ?ReactElement {
+        const {
+            scene,
+            navigationState,
+        } = props;
+
+        const {
+            index,
+            isStale,
+            key,
+        } = scene;
+
+        const offset = navigationState.index - index;
+
+        if (Math.abs(offset) > 2) {
+            // Scene is far away from the active scene. Hides it to avoid unnecessary
+            // rendering.
+            return null;
+        }
+
+        const subView = renderer(props);
+        if (subView === null) {
+            return null;
+        }
+
+        const pointerEvents = offset !== 0 || isStale ? 'none' : 'box-none';
+        return (
+            <Animated.View
+                pointerEvents={pointerEvents}
+                key={name + '_' + key}
+                style={[
+                    styles[name],
+                    styleInterpolator(props),
+                ]}>
+                {subView}
+            </Animated.View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  appbar: {
-    alignItems: 'center',
-    backgroundColor: Platform.OS === 'ios' ? '#EFEFF2' : '#FFF',
-    borderBottomColor: 'rgba(0, 0, 0, .15)',
-    borderBottomWidth: Platform.OS === 'ios' ? StyleSheet.hairlineWidth : 0,
-    elevation: 2,
-    flexDirection: 'row',
-    height: APPBAR_HEIGHT + STATUSBAR_HEIGHT,
-    justifyContent: 'flex-start',
-    left: 0,
-    marginBottom: 16, // This is needed for elevation shadow
-    position: 'absolute',
-    right: 0,
-    top: 0,
-  },
+    appbar: {
+        alignItems: 'center',
+        backgroundColor: Platform.OS === 'ios' ? '#EFEFF2' : '#FFF',
+        borderBottomColor: 'rgba(0, 0, 0, .15)',
+        borderBottomWidth: Platform.OS === 'ios' ? StyleSheet.hairlineWidth : 0,
+        elevation: 2,
+        flexDirection: 'row',
+        height: APPBAR_HEIGHT + STATUSBAR_HEIGHT,
+        justifyContent: 'flex-start',
+        left: 0,
+        marginBottom: 16, // This is needed for elevation shadow
+        position: 'absolute',
+        right: 0,
+        top: 0,
+    },
 
-  title: {
-    bottom: 0,
-    left: APPBAR_HEIGHT,
-    marginTop: STATUSBAR_HEIGHT,
-    position: 'absolute',
-    right: APPBAR_HEIGHT,
-    top: 0,
-  },
+    title: {
+        bottom: 0,
+        left: APPBAR_HEIGHT,
+        marginTop: STATUSBAR_HEIGHT,
+        position: 'absolute',
+        right: APPBAR_HEIGHT,
+        top: 0,
+    },
 
-  left: {
-    bottom: 0,
-    left: 0,
-    marginTop: STATUSBAR_HEIGHT,
-    position: 'absolute',
-    top: 0,
-  },
+    left: {
+        bottom: 0,
+        left: 0,
+        marginTop: STATUSBAR_HEIGHT,
+        position: 'absolute',
+        top: 0,
+    },
 
-  right: {
-    bottom: 0,
-    marginTop: STATUSBAR_HEIGHT,
-    position: 'absolute',
-    right: 0,
-    top: 0,
-  },
+    right: {
+        bottom: 0,
+        marginTop: STATUSBAR_HEIGHT,
+        position: 'absolute',
+        right: 0,
+        top: 0,
+    },
 });
 
 const NavigationHeaderContainer = NavigationContainer.create(NavigationHeader);

@@ -50,7 +50,7 @@ import type  {
   NavigationSceneRenderer,
   NavigationSceneRendererProps,
 } from 'NavigationTypeDefinition';
-
+import PropTypes from 'prop-types';
 type SceneViewProps =  {
   sceneRenderer: NavigationSceneRenderer,
   sceneRendererProps: NavigationSceneRendererProps,
@@ -64,7 +64,6 @@ type Props = NavigationSceneRendererProps & {
   style: any,
 };
 
-const {PropTypes} = React;
 
 class SceneView extends React.Component<any, SceneViewProps, any> {
 

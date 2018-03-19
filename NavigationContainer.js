@@ -10,7 +10,7 @@
  * @flow
  */
 'use strict';
-
+import PropTypes from 'prop-types';
 var React = require('react');
 var NavigationRootContainer = require('./NavigationRootContainer');
 
@@ -36,10 +36,10 @@ function createNavigationContainer(
     }
   }
   NavigationComponent.contextTypes = {
-    onNavigate: React.PropTypes.func,
+    onNavigate: PropTypes.func,
   };
   NavigationComponent.childContextTypes = {
-    onNavigate: React.PropTypes.func,
+    onNavigate: PropTypes.func,
   };
   return NavigationComponent;
 }
